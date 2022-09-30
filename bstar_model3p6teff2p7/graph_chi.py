@@ -100,6 +100,7 @@ class Dataset:
         return storage
 
     def rep_ids(self,filename):
+        count=0
         line_store=self.read_line_id("LINE_ID")
         f = open(filename, "r")
         f_lines = f.readlines()
@@ -109,12 +110,20 @@ class Dataset:
         for l in f_lines[4:]:
             txt_line = l.split()
             loc=float(txt_line[2])
+            lowest_diff=1.0
+            lowest_key=1.0
             for k in line_store.keys():
                 if abs(loc-k)<0.1:
-                    i=line_store[k][:line_store[k].index('(')]
-                    if not i in storage:
-                        storage[i] = dict()
-                    storage[i][k]=float(txt_line[4])
+                    if lowest_diff>abs(loc-k):
+                        lowest_diff=abs(loc-k)
+                        lowest_key=k
+            if lowest_key!=1.0:
+                i=line_store[lowest_key][:line_store[lowest_key].index('(')]
+                if not i in storage:
+                    storage[i] = dict()
+                storage[i][lowest_key]=float(txt_line[4])
+                count+=1
+        print(count)
         return storage
 
 EFF_TEMP=2.7
@@ -154,7 +163,7 @@ colors=[[], [], [], [], []]
 cols=[]
 lowest_chi_val=1000000.0
 lowest_location=(0,0)
-#print(obs_data.storage)
+print(obs_data.storage)
 for abund in data_storage:
     cols.append(abund)
     for mt in data_storage[abund]:
