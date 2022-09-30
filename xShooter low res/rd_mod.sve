@@ -1,0 +1,7 @@
+rd_mod
+{FILE=/nfs-share/home/jcb185/bstarmodels/bstar_models_teff2p75/bstar_init_model3p9/obs_all/obs_fin_1}
+{OVER=F}
+{SCALE=1.0D0}
+{XFAC=1.0D0}
+{TIT= }
+{RAD_VEL=0.0D0}

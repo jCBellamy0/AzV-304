@@ -1,0 +1,8 @@
+norm
+{RD_OBS=F}
+{TIT= }
+{FILE=/nfs-share/home/jcb185/bstarmodels/bstar_models_teff2p75/bstar_init_model3p9/obs_all/obs_cont}
+{LIN=F}
+{WR=F}
+{ADD=F}
+{OVER=T}
