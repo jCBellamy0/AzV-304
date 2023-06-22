@@ -342,10 +342,31 @@ def plot_chi_table(obs_dataset, table_func, mod_dataset_list):
         #fig.patch.set_visible(False)
         plt.show()
 
+def check_ew_comparison(mod_full_dataset):
+     helper_dict = {1:["C2","CIII","CIV"],3:["NIII"],5:["OIII","O2","OIV"],7:["SkIII","SkIV"]}
+     for mt_val in range(1,7,2):
+        for abund_val in range(1,8,2):
+            other_dataset_norm = mod_full_dataset.get_micro_abund_error_storage(mt_val,0)
+            other_dataset_half = mod_full_dataset.get_micro_abund_error_storage(mt_val,abund_val)
+            other_dataset_double = mod_full_dataset.get_micro_abund_error_storage(mt_val,abund_val+1)
+            for species in other_dataset_norm:
+                if species in other_dataset_half and species in other_dataset_double:
+                    for line in other_dataset_norm[species]:
+                        if line in other_dataset_half[species] and line in other_dataset_double[species]:
+                            ew_norm = other_dataset_norm[species][line]
+                            ew_half = other_dataset_half[species][line]
+                            ew_double = other_dataset_double[species][line]
+                            if (species in helper_dict[abund_val]) and (ew_half>ew_norm or ew_norm>ew_double):
+                                print("MT: "+str(mt_val)+" Species: "+str(species)+" Line: "+str(line))
+                                print("EW/2: "+str(ew_half)+" EW: "+str(ew_norm)+" EW*2: "+str(ew_double))
+
+
 #plot_chi_wavelength(obs_dataset.storage,mod_dataset_4.get_micro_abund_storage(1,"C*2"))
 
 #plot_error_ew(obs_dataset)
 
 #print(get_ionization_counts(obs_dataset.storage,mod_dataset_1.storage[0]))
 
-plot_chi_table(obs_dataset, plot_best_fit_abund_chi_value, [mod_dataset_1, mod_dataset_2,mod_dataset_3,mod_dataset_4,mod_dataset_5,mod_dataset_6,mod_dataset_7,mod_dataset_8])
+#plot_chi_table(obs_dataset, plot_best_fit_abund_chi_value, [mod_dataset_1, mod_dataset_2,mod_dataset_3,mod_dataset_4,mod_dataset_5,mod_dataset_6,mod_dataset_7,mod_dataset_8])
+
+check_ew_comparison(mod_dataset_4)
