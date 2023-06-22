@@ -167,15 +167,18 @@ print(obs_data.storage)
 for abund in data_storage:
     cols.append(abund)
     for mt in data_storage[abund]:
+        scalar=1.0
+        if abund=='OII' or abund=='OIII':
+            scalar=0.5
         if mt > 1:
             chi_val=get_chi_val_interp(obs_data,data_storage[abund][mt-2], data_storage[abund][mt])
-            txt_table[mt-2].append(chi_val)
+            txt_table[mt-2].append(chi_val*scalar)
             colors[mt-2].append('white')
             if chi_val<lowest_chi_val:
                 lowest_chi_val=chi_val
                 lowest_location=(mt-2,len(txt_table[mt-2])-1)
         chi_val=get_chi_val(obs_data, data_storage[abund][mt])
-        txt_table[mt-1].append(chi_val)
+        txt_table[mt-1].append(chi_val*scalar)
         colors[mt-1].append('white')
         if chi_val<lowest_chi_val:
             lowest_chi_val=chi_val

@@ -1,0 +1,13 @@
+rd_obs
+{FILE=XSH-U_AzV-304_INDIV1D1_trimmed.txt}
+{SCALE=1.0D0}
+{ADD=0.0D0}
+{TIT= }
+{RAD_VEL=78}
+{CLEAN=F}
+{REM_BP=F}
+{CLN_CR=F}
+{SMOOTH=F}
+{OVER=F}
+{COLS=1,4}
+{WR=F}

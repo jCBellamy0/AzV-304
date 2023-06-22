@@ -1,0 +1,8 @@
+norm
+{RD_OBS=F}
+{TIT= }
+{FILE=obs_cont}
+{LIN=F}
+{WR=F}
+{ADD=F}
+{OVER=T}

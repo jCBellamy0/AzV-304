@@ -1,0 +1,11 @@
+.rd_obs
+.rd_obs2
+.rd_mod(file=obs_fin_1_2p63p6)(over=T)
+.norm(file=obs_cont_2p63p6)(over=F)
+.rd_mod(file=obs_fin_5_2p63p6)(over=T)
+.norm(file=obs_cont_2p63p6)(over=F)
+.rd_mod(file=obs_fin_5_c_tim_2_2p63p6)(over=T)
+.norm(file=obs_cont_2p63p6)(over=T)
+.flam
+
+

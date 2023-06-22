@@ -1,0 +1,13 @@
+rd_obs
+{FILE=NEW_NORM157}
+{SCALE=1.0D0}
+{ADD=0.0D0}
+{TIT= }
+{RAD_VEL=147.5}
+{CLEAN=F}
+{REM_BP=F}
+{CLN_CR=F}
+{SMOOTH=F}
+{OVER=F}
+{COLS=1,2}
+{WR=F}
