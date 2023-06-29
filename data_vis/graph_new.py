@@ -113,29 +113,33 @@ def get_ionization_counts(obs_dataset, other_dataset):
 
 def get_chi_val(obs_dataset, other_dataset):
     sum = 0.0
-    count_dict = get_ionization_counts(obs_dataset,other_dataset)
-    for species in obs_dataset:
+    count_dict = get_ionization_counts(obs_dataset.storage,other_dataset)
+    for species in obs_dataset.storage:
             if species in other_dataset and species != "Ca2":
-                for line in obs_dataset[species]:
+                for line in obs_dataset.storage[species]:
                     if line in other_dataset[species]:
-                        ew1 = obs_dataset[species][line]
+                        ew1 = obs_dataset.storage[species][line]
                         ew2 = other_dataset[species][line]
-                        sum += float(float(float((ew1-ew2)**2)/ew2)/count_dict[species])
+                        error_val = obs_dataset.error_storage[species][line]
+                        sum += float(float((ew1-ew2))/error_val)**2
+                        #sum += float(float(float((ew1-ew2)**2)/error_val)/count_species
     return round(sum, 2)
 
 
 def get_chi_val_interp(obs_dataset, other_dataset1, other_dataset2):
     sum = 0.0
-    count_dict = get_ionization_counts(obs_dataset,other_dataset1)
-    for species in obs_dataset:
+    count_dict = get_ionization_counts(obs_dataset.storage,other_dataset1)
+    for species in obs_dataset.storage:
         if species in other_dataset1 and species in other_dataset2 and species != "Ca2":
-            for line in obs_dataset[species]:
+            for line in obs_dataset.storage[species]:
                 if line in other_dataset1[species] and line in other_dataset2[species]:
-                    ew1 = obs_dataset[species][line]
+                    ew1 = obs_dataset.storage[species][line]
                     ew2 = other_dataset1[species][line]
                     ew3 = other_dataset2[species][line]
                     ex = float((ew2+ew3)/2)
-                    sum += float(float(float((ew1-ew2)**2)/ew2)/count_dict[species])
+                    error_val = obs_dataset.error_storage[species][line]
+                    sum += float(float((ew1-ex))/error_val)**2
+
     return round(sum, 2)
 
 def plot_chi_wavelength(obs_dataset, other_dataset,filter_list=None):#obs_storage, other_dataset.storage list
@@ -224,22 +228,23 @@ mod_dataset_8 = FullDataset("EW_DATA_FULL_3p72p6")
 def get_chi_val_abund(obs_dataset, mod_dataset, mt, abund):
     sum = 0.0
     other_dataset = mod_dataset.get_micro_abund_storage(mt,abund)
-    count_dict = get_ionization_counts(obs_dataset,other_dataset)
-    for species in obs_dataset:
+    count_dict = get_ionization_counts(obs_dataset.storage,other_dataset)
+    for species in obs_dataset.storage:
             if species in other_dataset and (species == "C2" or species == "CIII" or species == "CIV"):
                 carbon_dataset = mod_dataset.get_micro_abund_storage(mt,"C*2")
-                for line in obs_dataset[species]:
+                for line in obs_dataset.storage[species]:
                     if line in carbon_dataset[species]:
-                        ew1 = obs_dataset[species][line]
+                        ew1 = obs_dataset.storage[species][line]
                         ew2 = carbon_dataset[species][line]
-                        sum += float(float(float((ew1-ew2)**2)/ew2)/count_dict[species])
+                        error_val = obs_dataset.error_storage[species][line]
+                        sum += float(float((ew1-ew2))/error_val)**2
             elif species in other_dataset and species != "Ca2":
-                for line in obs_dataset[species]:
+                for line in obs_dataset.storage[species]:
                     if line in other_dataset[species]:
-                        ew1 = obs_dataset[species][line]
+                        ew1 = obs_dataset.storage[species][line]
                         ew2 = other_dataset[species][line]
-                        sum += float(float(float((ew1-ew2)**2)/ew2)/count_dict[species])
-            
+                        error_val = obs_dataset.error_storage[species][line]
+                        sum += float(float((ew1-ew2))/error_val)**2            
 
     return round(sum, 2)
 
@@ -248,26 +253,28 @@ def get_chi_val_abund_interp(obs_dataset, mod_dataset, mt, abund):
     sum = 0.0
     other_dataset_1 = mod_dataset.get_micro_abund_storage(mt-1,abund)
     other_dataset_2 = mod_dataset.get_micro_abund_storage(mt+1,abund)
-    count_dict = get_ionization_counts(obs_dataset,other_dataset_1)
-    for species in obs_dataset:
+    count_dict = get_ionization_counts(obs_dataset.storage,other_dataset_1)
+    for species in obs_dataset.storage:
            if species in other_dataset_1 and species in other_dataset_2 and (species == "C2" or species == "CIII" or species == "CIV"):
                 carbon_dataset_1 = mod_dataset.get_micro_abund_storage(mt-1,"C*2")
                 carbon_dataset_2 = mod_dataset.get_micro_abund_storage(mt+1,"C*2")
-                for line in obs_dataset[species]:
+                for line in obs_dataset.storage[species]:
                     if line in carbon_dataset_1[species] and line in carbon_dataset_2[species]:
-                        ew1 = obs_dataset[species][line]
+                        ew1 = obs_dataset.storage[species][line]
                         ew2 = carbon_dataset_1[species][line]
                         ew3 = carbon_dataset_2[species][line]
                         ex = float((ew2+ew3)/2)
-                        sum += float(float(float((ew1-ew2)**2)/ew2)/count_dict[species])
+                        error_val = obs_dataset.error_storage[species][line]
+                        sum += float(float((ew1-ex))/error_val)**2
            if species in other_dataset_1 and species in other_dataset_2 and species != "Ca2":
-                for line in obs_dataset[species]:
+                for line in obs_dataset.storage[species]:
                     if line in other_dataset_1[species] and line in other_dataset_2[species]:
-                        ew1 = obs_dataset[species][line]
+                        ew1 = obs_dataset.storage[species][line]
                         ew2 = other_dataset_1[species][line]
                         ew3 = other_dataset_2[species][line]
                         ex = float((ew2+ew3)/2)
-                        sum += float(float(float((ew1-ew2)**2)/ew2)/count_dict[species])
+                        error_val = obs_dataset.error_storage[species][line]
+                        sum += float(float((ew1-ex))/error_val)**2
     return round(sum, 2)
 
 def plot_best_fit_abund_chi_value(obs_dataset, mod_dataset):
@@ -275,10 +282,10 @@ def plot_best_fit_abund_chi_value(obs_dataset, mod_dataset):
     for i in range(1,6):
         if i in [1,3,5]:
             for j in range(9):
-                txt_table[i-1].append(get_chi_val_abund(obs_dataset.storage,mod_dataset,i,j))
+                txt_table[i-1].append(get_chi_val_abund(obs_dataset,mod_dataset,i,j))
         else:
             for j in range(9):
-                txt_table[i-1].append(get_chi_val_abund_interp(obs_dataset.storage,mod_dataset,i,j))
+                txt_table[i-1].append(get_chi_val_abund_interp(obs_dataset,mod_dataset,i,j))
 
     colors=[[],[],[],[],[]]
     lowest_val = 10000000000000
@@ -298,10 +305,10 @@ def plot_chi_square(obs_dataset,mod_dataset):
     for i in range(1,6):
         if i in [1,3,5]:
             for j in range(9):
-                txt_table[i-1].append(get_chi_val(obs_dataset.storage,mod_dataset.get_micro_abund_storage(i,j)))
+                txt_table[i-1].append(get_chi_val(obs_dataset,mod_dataset.get_micro_abund_storage(i,j)))
         else:
             for j in range(9):
-                txt_table[i-1].append(get_chi_val_interp(obs_dataset.storage,mod_dataset.get_micro_abund_storage(i-1,j),mod_dataset.get_micro_abund_storage(i+1,j)))
+                txt_table[i-1].append(get_chi_val_interp(obs_dataset,mod_dataset.get_micro_abund_storage(i-1,j),mod_dataset.get_micro_abund_storage(i+1,j)))
 
     colors=[[],[],[],[],[]]
     lowest_val = 10000000000000
@@ -327,7 +334,7 @@ def plot_chi_table(obs_dataset, table_func, mod_dataset_list):
             ax.axis("tight")
             ax_data = table_func(obs_dataset, mod_dataset)
             tbl = ax.table(cellText=ax_data[0],cellColours=ax_data[1],rowLabels=["MT1", "MT2", "MT3", "MT4", "MT5"], colLabels=["N/A","C/2","C*2","N/2","N*2","O/2","O*2","SI/2","SI*2"],loc='center')
-            font_size=4
+            font_size=0.5
             tbl.auto_set_font_size(False)
             #tbl.set_fontsize(font_size)
             #tbl.scale(1.7,2.0)
@@ -367,6 +374,6 @@ def check_ew_comparison(mod_full_dataset):
 
 #print(get_ionization_counts(obs_dataset.storage,mod_dataset_1.storage[0]))
 
-#plot_chi_table(obs_dataset, plot_best_fit_abund_chi_value, [mod_dataset_1, mod_dataset_2,mod_dataset_3,mod_dataset_4,mod_dataset_5,mod_dataset_6,mod_dataset_7,mod_dataset_8])
+plot_chi_table(obs_dataset, plot_chi_square, [mod_dataset_1, mod_dataset_2,mod_dataset_3,mod_dataset_4,mod_dataset_5,mod_dataset_6,mod_dataset_7,mod_dataset_8])
 
-check_ew_comparison(mod_dataset_4)
+#check_ew_comparison(mod_dataset_4)
