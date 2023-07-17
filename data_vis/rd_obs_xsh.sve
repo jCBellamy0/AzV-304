@@ -9,5 +9,5 @@ rd_obs
 {CLN_CR=F}
 {SMOOTH=F}
 {OVER=F}
-{COLS=1,4}
+{COLS=1,2}
 {WR=F}
