@@ -1,0 +1,8 @@
+questions:
+-what is the reason for the new measurements having uneven absorption on the red side? why does this not show up in previous data (higher-res?)
+-which do i use as a definitive "observed data set"? if i use both/multiple, what happens if there is disagreement?
+-is there a physical explanation for the weird trend at teff=2.6 log_g=3.5 at no abundance chance?
+
+other questions:
+-how does the ideal gas law translate to/become part of equations describing ionization level populations (partition function, saha equation)
+-is there something about using different ionization levels of the same element versus any two different lines with different ionization energy
