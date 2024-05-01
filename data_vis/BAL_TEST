@@ -1,0 +1,20 @@
+! 
+! Reduced Chi^2 value assumes a SN to 100.
+! Reduced Chi^2 at another SN =  Chi^2 * (SN/100)^2.
+! Lam refers to the centroid wavelength (no regions omitted).
+! The first  2 EW's include the omitted regions.
+! The second 2 EW's exclude the omitted regions.
+! 
+! Omit window pairs follow each EW & Chi^2 measurement.
+! 
+! Plot #:  1     Plot title:  
+! Plot #:  2     Plot title:  
+! Plot #:  3     Plot title:  
+!
+! IP         Lam     EW(mod)     EW(obs)     EW(mod)     EW(obs)     Chi^2     Lam(ID)     Transition
+!        Line st     Line end    N(omit)
+! 
+   3   6565.5382       2.506       2.460       2.350       2.362       2.943       0.000      
+                   6542.7256   6594.1934           2           0
+                    6578.271    6581.005    6583.578    6585.669
+  

@@ -1,0 +1,20 @@
+! 
+! Reduced Chi^2 value assumes a SN to 100
+! Reduced Chi^2 at another SN =  Chi^2 * (SN/100)^2
+! Lam(min) refers to the wavelength with the minimum data values in the defined band
+! 
+! Plot #:  1     Plot title:  
+! Plot #:  2     Plot title:  
+!
+! IP         Lam     EW(mod)     EW(obs)     EW(mod)     EW(obs)     Chi^2     Lam(ID)     Transition
+!
+ Omit window pairs
+! 
+   2   6565.1731       2.338       2.371       2.248       2.283       2.934       0.000      
+  
+   2   4862.8766       2.741       2.817       2.581       2.639       2.216       0.000      
+  
+   2   4342.0576       2.854       2.982       2.175       2.225       3.312       0.000      
+  
+   2   4103.5212       3.371       3.370       2.967       3.042       4.261       0.000      
+  

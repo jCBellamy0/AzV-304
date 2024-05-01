@@ -6,3 +6,4 @@ questions:
 other questions:
 -how does the ideal gas law translate to/become part of equations describing ionization level populations (partition function, saha equation)
 -is there something about using different ionization levels of the same element versus any two different lines with different ionization energy
+batobs.sh >& err &
